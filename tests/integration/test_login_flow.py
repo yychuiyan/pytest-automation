@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import pytest
 
-# 配置中心：从 .env 读凭证，不硬编码明文
-from core.config import config
-
 # 接口封装：通过 AuthApi 调用（跨接口流程用封装层串联）
 from apis.auth import AuthApi
+
+# 配置中心：从 .env 读凭证，不硬编码明文
+from core.config import config
 
 
 @pytest.mark.regression

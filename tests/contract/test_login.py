@@ -5,11 +5,11 @@ from __future__ import annotations
 # pytest：用 @pytest.mark 打标记
 import pytest
 
-# 配置中心：从 .env 读凭证，不硬编码明文
-from core.config import config
-
 # 接口封装：通过 AuthApi 调用（不是裸 http_client），这样封装层才被覆盖
 from apis.auth import AuthApi
+
+# 配置中心：从 .env 读凭证，不硬编码明文
+from core.config import config
 
 # 第六步的 pydantic 模型：校验登录响应结构
 from schemas.auth import LoginResponse

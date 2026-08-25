@@ -8,11 +8,11 @@ import pytest
 # yaml：读数据文件（只存角色场景，不存密码）
 import yaml
 
-# 配置中心：从 .env 读账号密码
-from core.config import config
-
 # 接口封装：通过 AuthApi 调用
 from apis.auth import AuthApi
+
+# 配置中心：从 .env 读账号密码
+from core.config import config
 
 # 角色 → 账号密码 的映射：凭证从 config（.env）读，代码里无明文
 ROLE_CREDENTIALS = {
