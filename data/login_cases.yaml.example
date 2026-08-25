@@ -1,0 +1,9 @@
+# 脱敏模板：复制为 login_cases.yaml 后填入真实账号（login_cases.yaml 被 gitignore，不会提交）
+- case: 管理员登录
+  username: <ADMIN_USERNAME>
+  password: <ADMIN_PASSWORD>
+  expect_role: admin
+- case: 普通用户登录
+  username: <UNIT_USERNAME>
+  password: <UNIT_PASSWORD>
+  expect_role: user
