@@ -1,0 +1,67 @@
+[project]
+name = "pytest-automation"
+version = "1.0.0"
+description = "接口自动化测试框架（pytest + requests）"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "requests>=2.32.0",           # HTTP 客户端
+    "python-dotenv>=1.0.1",       # 读 .env
+    "pytest>=8.3.0",              # 测试框架
+    "pytest-html>=4.1.1",         # HTML 报告
+    "pytest-rerunfailures>=14.0", # 失败重跑
+    "allure-pytest>=2.13.5",      # Allure 报告
+    "pycryptodome>=3.20.0",       # AES 加密
+    "pydantic>=2.9.0",            # 数据校验
+    "loguru>=0.7.2",              # 日志
+    "PyYAML>=6.0.2",              # 数据驱动
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6.0",        # 代码检查 + 格式化
+    "mypy>=1.11.0",       # 类型检查
+    "pre-commit>=3.8.0",  # git 提交钩子
+    "pip-audit>=2.10.1",
+    "pytest-cov>=7.1.0",
+    "pytest-xdist>=3.8.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+markers = [
+    "smoke: 核心主流程（P0 冒烟，每次提交/PR 必跑）",
+    "regression: 重要功能（P1 回归，每日/发版前跑）",
+]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--reruns", "2",                            # 失败最多重跑 2 次
+    "--reruns-delay", "1",                      # 每次重跑间隔 1 秒
+    "--alluredir=reports/allure-results",       # Allure 结果
+    "--junitxml=reports/junit.xml",             # JUnit（Jenkins 趋势图用）
+    "--html=reports/pytest-html/report.html",   # HTML 报告
+    "--self-contained-html",                    # HTML 单文件，方便分享
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = [".venv", "reports", ".pytest_cache"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "N", "S"]
+ignore = ["S101"]  # 测试框架允许 assert
+
+[tool.ruff.lint.per-file-ignores]
+"core/data_generator.py" = ["S311"]  # 测试数据用 random，非密码学
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+no_implicit_optional = true
