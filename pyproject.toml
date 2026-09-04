@@ -32,6 +32,7 @@ testpaths = ["tests"]
 markers = [
     "smoke: 核心主流程（P0 冒烟，每次提交/PR 必跑）",
     "regression: 重要功能（P1 回归，每日/发版前跑）",
+    "edge: 边界/扩展/已知差异场景，按需跑",
 ]
 addopts = [
     "-v",
@@ -55,6 +56,7 @@ ignore = ["S101"]  # 测试框架允许 assert
 
 [tool.ruff.lint.per-file-ignores]
 "core/data_generator.py" = ["S311"]  # 测试数据用 random，非密码学
+"schemas/*.py" = ["N815"]  # 响应模型字段需与后端 camelCase JSON 一致
 
 [tool.ruff.format]
 quote-style = "double"

@@ -24,3 +24,10 @@ class AuthApi(BaseApi):
     # 登出：POST /api/auth/logout
     def logout(self) -> Response:
         return self.client.post("/api/auth/logout")
+
+    # 注册：POST /api/auth/register（公开接口，无需登录态）
+    def register(self, username: str, password: str, email: str) -> Response:
+        return self.client.post(
+            "/api/auth/register",
+            json={"username": username, "password": password, "email": email},
+        )

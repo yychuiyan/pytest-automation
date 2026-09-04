@@ -16,6 +16,8 @@ __pycache__/
 .venv/
 dist/
 build/
+.cursor/
+.vscode/
 
 # 测试产物
 reports/
